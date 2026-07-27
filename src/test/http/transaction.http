@@ -1,0 +1,57 @@
+### Create transaction
+POST http://localhost:8080/api/transaction
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrcmlzdG9mQGV4YW1wbGUuY29tIiwiaWF0IjoxNzg0OTk2MzI4LCJleHAiOjE3ODUwODI3Mjh9.uP7UPDZ26rJVOmTRSRRU9X0Dr0eZKs-BLaVABC6XiqY
+Content-Type: application/json
+
+{
+  "categoryId": 7,
+  "amount": 12990.50,
+  "description": "Monthly grocery shopping",
+  "transactionDate": "2026-07-25T20:30:00+02:00"
+}
+
+### Get owned transactions
+GET http://localhost:8080/api/transaction?page=0&size=10&sort=transactionDate,desc
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrcmlzdG9mQGV4YW1wbGUuY29tIiwiaWF0IjoxNzg1MDA4OTYxLCJleHAiOjE3ODUwOTUzNjF9.bdait-lY2Kuerbz11Yi7qEwwtneQByg4OP4Zjslbpoc
+
+### Get transaction by id
+@transactionId = 2
+
+GET http://localhost:8080/api/transaction/{{transactionId}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrcmlzdG9mQGV4YW1wbGUuY29tIiwiaWF0IjoxNzg0OTk2MzI4LCJleHAiOjE3ODUwODI3Mjh9.uP7UPDZ26rJVOmTRSRRU9X0Dr0eZKs-BLaVABC6XiqY
+
+### Update transaction
+PATCH http://localhost:8080/api/transaction/{{transactionId}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrcmlzdG9mQGV4YW1wbGUuY29tIiwiaWF0IjoxNzg0OTk2MzI4LCJleHAiOjE3ODUwODI3Mjh9.uP7UPDZ26rJVOmTRSRRU9X0Dr0eZKs-BLaVABC6XiqY
+Content-Type: application/json
+
+{
+  "categoryId": 10,
+  "amount": 15990.00,
+  "description": "Updated grocery shopping",
+  "transactionDate": "2026-07-26T18:30:00+02:00"
+}
+
+### Delete transaction by id
+DELETE http://localhost:8080/api/transaction/{{transactionId}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrcmlzdG9mQGV4YW1wbGUuY29tIiwiaWF0IjoxNzg0OTk2MzI4LCJleHAiOjE3ODUwODI3Mjh9.uP7UPDZ26rJVOmTRSRRU9X0Dr0eZKs-BLaVABC6XiqY
+
+### Get owned transactions by date range
+GET http://localhost:8080/api/transaction?from=2026-07-01T00:00:00Z&to=2026-07-31T23:59:59Z&page=0&size=10&
+    sort=transactionDate,desc
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrcmlzdG9mQGV4YW1wbGUuY29tIiwiaWF0IjoxNzg1MDA4OTYxLCJleHAiOjE3ODUwOTUzNjF9.bdait-lY2Kuerbz11Yi7qEwwtneQByg4OP4Zjslbpoc
+
+
+### Get owned transactions by category
+GET http://localhost:8080/api/transaction?categoryId=10&page=0&size=10&sort=transactionDate,desc
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrcmlzdG9mQGV4YW1wbGUuY29tIiwiaWF0IjoxNzg1MDA4OTYxLCJleHAiOjE3ODUwOTUzNjF9.bdait-lY2Kuerbz11Yi7qEwwtneQByg4OP4Zjslbpoc
+
+### Combined filter
+GET http://localhost:8080/api/transaction?categoryId=10&from=2026-07-01T00:00:00Z&to=2026-07-31T23:59:59Z&page=0&
+    size=10&sort=transactionDate,desc
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrcmlzdG9mQGV4YW1wbGUuY29tIiwiaWF0IjoxNzg1MDA4OTYxLCJleHAiOjE3ODUwOTUzNjF9.bdait-lY2Kuerbz11Yi7qEwwtneQByg4OP4Zjslbpoc
+
+
+### Search
+GET http://localhost:8080/api/transaction?search=asd&page=0&size=10&sort=transactionDate,desc
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrcmlzdG9mQGV4YW1wbGUuY29tIiwiaWF0IjoxNzg1MDA4OTYxLCJleHAiOjE3ODUwOTUzNjF9.bdait-lY2Kuerbz11Yi7qEwwtneQByg4OP4Zjslbpoc

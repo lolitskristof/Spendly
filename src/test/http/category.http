@@ -1,0 +1,28 @@
+### Get categories for user
+GET http://localhost:8080/api/categories
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrcmlzdG9mQGV4YW1wbGUuY29tIiwiaWF0IjoxNzg0OTk2MzI4LCJleHAiOjE3ODUwODI3Mjh9.uP7UPDZ26rJVOmTRSRRU9X0Dr0eZKs-BLaVABC6XiqY
+
+### Create category
+POST http://localhost:8080/api/categories
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrcmlzdG9mQGV4YW1wbGUuY29tIiwiaWF0IjoxNzg0OTk2MzI4LCJleHAiOjE3ODUwODI3Mjh9.uP7UPDZ26rJVOmTRSRRU9X0Dr0eZKs-BLaVABC6XiqY
+
+{
+  "name": "Test",
+  "categoryType": "INCOME"
+}
+
+### Update category
+@categoryId = 15
+
+PATCH http://localhost:8080/api/categories/{{categoryId}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrcmlzdG9mQGV4YW1wbGUuY29tIiwiaWF0IjoxNzg0OTk2MzI4LCJleHAiOjE3ODUwODI3Mjh9.uP7UPDZ26rJVOmTRSRRU9X0Dr0eZKs-BLaVABC6XiqY
+Content-Type: application/json
+
+{
+  "categoryType": "INCOME"
+}
+
+### Delete category
+DELETE http://localhost:8080/api/categories/{{categoryId}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrcmlzdG9mQGV4YW1wbGUuY29tIiwiaWF0IjoxNzg0OTk2MzI4LCJleHAiOjE3ODUwODI3Mjh9.uP7UPDZ26rJVOmTRSRRU9X0Dr0eZKs-BLaVABC6XiqY

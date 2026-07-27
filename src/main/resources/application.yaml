@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: spendly
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/spendly}
+    username: ${DB_USERNAME:spendly}
+    password: ${DB_PASSWORD:spendly}
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+
+  flyway:
+    enabled: true
+
+server:
+  port: 8080
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: 86400000
