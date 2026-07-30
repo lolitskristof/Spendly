@@ -1,0 +1,40 @@
+### Create subscription
+POST http://localhost:8080/api/subscription
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrcmlzdG9mQGV4YW1wbGUuY29tIiwiaWF0IjoxNzg1NDEzOTExLCJleHAiOjE3ODU1MDAzMTF9.5-RdtaPmsMeU_7RSe8ZfrCL9gLu4KDPNQbcvupi3lsI
+
+{
+  "categoryId": 10,
+  "name": "Netflix",
+  "amount": 5490.00,
+  "billingPeriod": "MONTHLY",
+  "nextBillingDate": "2026-08-15"
+}
+
+### Get subscriptions
+http://localhost:8080/api/subscription
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrcmlzdG9mQGV4YW1wbGUuY29tIiwiaWF0IjoxNzg1NDEzOTExLCJleHAiOjE3ODU1MDAzMTF9.5-RdtaPmsMeU_7RSe8ZfrCL9gLu4KDPNQbcvupi3lsI
+
+
+### Get subscription
+http://localhost:8080/api/subscription/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrcmlzdG9mQGV4YW1wbGUuY29tIiwiaWF0IjoxNzg1NDEzOTExLCJleHAiOjE3ODU1MDAzMTF9.5-RdtaPmsMeU_7RSe8ZfrCL9gLu4KDPNQbcvupi3lsI
+
+### Update subscription
+PATCH http://localhost:8080/api/subscription/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrcmlzdG9mQGV4YW1wbGUuY29tIiwiaWF0IjoxNzg1NDEzOTExLCJleHAiOjE3ODU1MDAzMTF9.5-RdtaPmsMeU_7RSe8ZfrCL9gLu4KDPNQbcvupi3lsI
+
+{
+  "name": "Netflix Premium",
+  "amount": 6490.00,
+  "billingPeriod": "MONTHLY",
+  "nextBillingDate": "2026-08-20",
+  "status": "ACTIVE"
+}
+
+### Delete subscription
+DELETE http://localhost:8080/api/subscription/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrcmlzdG9mQGV4YW1wbGUuY29tIiwiaWF0IjoxNzg1NDEzOTExLCJleHAiOjE3ODU1MDAzMTF9.5-RdtaPmsMeU_7RSe8ZfrCL9gLu4KDPNQbcvupi3lsI
+
+
