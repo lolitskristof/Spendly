@@ -1,0 +1,9 @@
+### Get monthly summary
+
+GET http://localhost:8080/api/dashboard/monthly-summary?year=2026&month=7
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrcmlzdG9mQGV4YW1wbGUuY29tIiwiaWF0IjoxNzg5MzAwMzY5LCJleHAiOjE3ODkzODY3Njl9.FpUjphD0_pG3u836Ri-yrD885WbVZK6FGufZSuwpFxMż#$
+
+### Get monthly with category
+
+GET http://localhost:8080/api/dashboard/category-expenses?year=2026&month=7
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrcmlzdG9mQGV4YW1wbGUuY29tIiwiaWF0IjoxNzg5MzAwMzY5LCJleHAiOjE3ODkzODY3Njl9.FpUjphD0_pG3u836Ri-yrD885WbVZK6FGufZSuwpFxMż#$
