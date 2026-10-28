@@ -1,0 +1,11 @@
+### Get date range report
+GET http://localhost:8080/api/reports/date-range?from=2026-07-01T00:00:00Z&to=2026-07-31T23:59:59Z
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3OTMxOTY4MDAsImV4cCI6MTc5MzI4MzIwMH0._mbWZm5HP2fs_UfeZVkjovM3H5GsgtR_jsVV1eLqHNU
+
+### Get monthly report
+GET http://localhost:8080/api/reports/monthly?year=2026&month=7
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3OTMxOTY4MDAsImV4cCI6MTc5MzI4MzIwMH0._mbWZm5HP2fs_UfeZVkjovM3H5GsgtR_jsVV1eLqHNU
+
+### Export transactions to CSV
+GET http://localhost:8080/api/reports/export/csv?from=2026-07-01T00:00:00Z&to=2026-08-01T00:00:00Z
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3OTMxOTY4MDAsImV4cCI6MTc5MzI4MzIwMH0._mbWZm5HP2fs_UfeZVkjovM3H5GsgtR_jsVV1eLqHNU

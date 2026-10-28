@@ -119,4 +119,19 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             @Param("from") OffsetDateTime from,
             @Param("to") OffsetDateTime to
     );
+
+    @Query("""
+            SELECT t
+            FROM Transaction t
+            JOIN FETCH t.category
+            WHERE t.user.id = :userId
+              AND t.transactionDate >= :from
+              AND t.transactionDate < :to
+            ORDER BY t.transactionDate ASC, t.id ASC
+            """)
+    List<Transaction> findTransactionsForExport(
+            @Param("userId") Long userId,
+            @Param("from") OffsetDateTime from,
+            @Param("to") OffsetDateTime to
+    );
 }
