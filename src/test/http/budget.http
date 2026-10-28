@@ -1,6 +1,6 @@
 ### Create budget
 POST http://localhost:8080/api/budget
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrcmlzdG9mQGV4YW1wbGUuY29tIiwiaWF0IjoxNzg1NDA4MTQzLCJleHAiOjE3ODU0OTQ1NDN9.lCnnazDmmKqpokRGUFBIL1CroELgmKCPYpl_ayrWQkg
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3OTMxOTY4MDAsImV4cCI6MTc5MzI4MzIwMH0._mbWZm5HP2fs_UfeZVkjovM3H5GsgtR_jsVV1eLqHNU
 Content-Type: application/json
 
 {

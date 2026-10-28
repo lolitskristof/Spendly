@@ -1,11 +1,11 @@
 ### Create transaction
 POST http://localhost:8080/api/transaction
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrcmlzdG9mQGV4YW1wbGUuY29tIiwiaWF0IjoxNzg0OTk2MzI4LCJleHAiOjE3ODUwODI3Mjh9.uP7UPDZ26rJVOmTRSRRU9X0Dr0eZKs-BLaVABC6XiqY
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3OTMxOTY4MDAsImV4cCI6MTc5MzI4MzIwMH0._mbWZm5HP2fs_UfeZVkjovM3H5GsgtR_jsVV1eLqHNU
 Content-Type: application/json
 
 {
-  "categoryId": 7,
-  "amount": 12990.50,
+  "categoryId": 10,
+  "amount": 40000.0,
   "description": "Monthly grocery shopping",
   "transactionDate": "2026-07-25T20:30:00+02:00"
 }

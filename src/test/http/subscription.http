@@ -1,14 +1,14 @@
 ### Create subscription
 POST http://localhost:8080/api/subscription
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrcmlzdG9mQGV4YW1wbGUuY29tIiwiaWF0IjoxNzg1NDEzOTExLCJleHAiOjE3ODU1MDAzMTF9.5-RdtaPmsMeU_7RSe8ZfrCL9gLu4KDPNQbcvupi3lsI
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3OTMxOTY4MDAsImV4cCI6MTc5MzI4MzIwMH0._mbWZm5HP2fs_UfeZVkjovM3H5GsgtR_jsVV1eLqHNU
 
 {
   "categoryId": 10,
-  "name": "Netflix",
+  "name": "ChatGPT",
   "amount": 5490.00,
   "billingPeriod": "MONTHLY",
-  "nextBillingDate": "2026-08-15"
+  "nextBillingDate": "2026-12-30"
 }
 
 ### Get subscriptions

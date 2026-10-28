@@ -104,4 +104,19 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             @Param("to") OffsetDateTime to,
             @Param("categoryType") CategoryType categoryType
     );
+
+    @Query("""
+            SELECT COALESCE(SUM(t.amount), 0)
+            FROM Transaction t
+            WHERE t.user.id = :userId
+              AND t.category.id = :categoryId
+              AND t.transactionDate >= :from
+              AND t.transactionDate < :to
+            """)
+    BigDecimal sumSpentByCategory(
+            @Param("userId") Long userId,
+            @Param("categoryId") Long categoryId,
+            @Param("from") OffsetDateTime from,
+            @Param("to") OffsetDateTime to
+    );
 }
