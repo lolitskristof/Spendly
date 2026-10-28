@@ -1,0 +1,31 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background-color: #fafafa;
+  color: #222;
+  font-family: Arial, sans-serif;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 18px 32px;
+  background-color: white;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.logo {
+  font-size: 20px;
+}
+
+.active-page {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
