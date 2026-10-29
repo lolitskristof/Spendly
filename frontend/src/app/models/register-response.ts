@@ -1,6 +1,6 @@
-import { UserRole } from './userRole';
+import { UserRole } from './user-role';
 
-export default interface RegisterResponse {
+export interface RegisterResponse {
   id: number;
   displayName: string;
   email: string;

@@ -1,13 +1,12 @@
-import { Injectable, inject } from '@angular/core';
+import { inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import LoginResponse from '../models/login-response';
+import { LoginResponse } from '../models/login-response';
 import { Router } from '@angular/router';
-import RegisterResponse from '../models/register-response';
+import { Service } from '@angular/core';
+import { RegisterResponse } from '../models/register-response';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class AuthService {
   private http = inject(HttpClient);
   private router = inject(Router);

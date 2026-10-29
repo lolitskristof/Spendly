@@ -6,26 +6,92 @@
 
   <div class="section-header">
     <h2>Monthly summary</h2>
-    <span class="section-description">Income and expenses</span>
+
+    <div class="period-controls">
+      <select
+        aria-label="Month"
+        #monthSelect
+        [value]="selectedMonth"
+        (change)="selectedMonth = +monthSelect.value; loadMonthlySummary()"
+      >
+        <option value="1">January</option>
+        <option value="2">February</option>
+        <option value="3">March</option>
+        <option value="4">April</option>
+        <option value="5">May</option>
+        <option value="6">June</option>
+        <option value="7">July</option>
+        <option value="8">August</option>
+        <option value="9">September</option>
+        <option value="10">October</option>
+        <option value="11">November</option>
+        <option value="12">December</option>
+      </select>
+
+      <input
+        type="number"
+        aria-label="Year"
+        min="2000"
+        max="2100"
+        #yearInput
+        [value]="selectedYear"
+        (change)="selectedYear = yearInput.valueAsNumber; loadMonthlySummary()"
+      />
+    </div>
   </div>
 
-  <div class="summary-grid">
-    <div class="summary-card">
-      <span class="card-label">Income</span>
-      <p class="card-value">—</p>
-      <span class="card-description">Total income this month</span>
+  @if (monthlySummary(); as summary) {
+    <div class="summary-grid">
+      <div class="summary-card">
+        <span class="card-label">Income</span>
+        <p class="card-value">
+          {{ summary.income | currency: 'HUF' : 'symbol' : '1.0-0' : 'hu-HU' }}
+        </p>
+        <span class="card-description">Total income this month</span>
+      </div>
+
+      <div class="summary-card">
+        <span class="card-label">Expenses</span>
+        <p class="card-value">
+          {{ summary.expense | currency: 'HUF' : 'symbol' : '1.0-0' : 'hu-HU' }}
+        </p>
+        <span class="card-description">Total spending this month</span>
+      </div>
+
+      <div class="summary-card">
+        <span class="card-label">Balance</span>
+        <p class="card-value balance-value">
+          {{ summary.monthlyBalance | currency: 'HUF' : 'symbol' : '1.0-0' : 'hu-HU' }}
+        </p>
+        <span class="card-description">Income minus expenses</span>
+      </div>
+    </div>
+  } @else {
+    <p class="loading-message">Loading monthly summary...</p>
+  }
+
+  <div class="category-section">
+    <div class="section-header">
+      <h2>Expenses by category</h2>
     </div>
 
-    <div class="summary-card">
-      <span class="card-label">Expenses</span>
-      <p class="card-value">—</p>
-      <span class="card-description">Total spending this month</span>
-    </div>
-
-    <div class="summary-card">
-      <span class="card-label">Balance</span>
-      <p class="card-value balance-value">—</p>
-      <span class="card-description">Income minus expenses</span>
+    <div class="category-list">
+      @if (categoryExpenseSummary(); as expenses) {
+        @if (expenses.length > 0) {
+          @for (expense of expenses; track expense.categoryId) {
+            <div class="category-row">
+              <span class="category-name">{{ expense.categoryName }}</span>
+              <span class="category-amount">
+                {{ expense.amount | currency: 'HUF' : 'symbol' : '1.0-0' : 'hu-HU' }}
+              </span>
+            </div>
+          }
+        } @else {
+          <p class="category-message">No expenses for this month.</p>
+        }
+      } @else {
+        <p class="category-message">Loading category expenses...</p>
+      }
     </div>
   </div>
 </section>
