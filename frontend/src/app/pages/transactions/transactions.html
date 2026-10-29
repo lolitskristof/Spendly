@@ -6,7 +6,84 @@
 
   <div class="section-header">
     <h2>All transactions</h2>
+
+    <button
+      type="button"
+      class="add-transaction-button"
+      (click)="showCreateForm.set(!showCreateForm())"
+    >
+      {{ showCreateForm() ? 'Close' : '+ Add transaction' }}
+    </button>
   </div>
+
+  @if (showCreateForm()) {
+    <form class="create-transaction-form" [formGroup]="createForm" (ngSubmit)="createTransaction()">
+      <h3>New transaction</h3>
+
+      <div class="create-form-grid">
+        <div class="create-form-field">
+          <label for="transaction-category">Category</label>
+
+          <select id="transaction-category" formControlName="categoryId" required>
+            <option [ngValue]="null" disabled>Select a category</option>
+
+            @for (category of categories(); track category.id) {
+              <option [ngValue]="category.id">
+                {{ category.name }} ({{ category.categoryType }})
+              </option>
+            }
+          </select>
+        </div>
+
+        <div class="create-form-field">
+          <label for="transaction-amount">Amount (HUF)</label>
+
+          <input
+            id="transaction-amount"
+            type="number"
+            min="0.01"
+            step="0.01"
+            placeholder="0"
+            formControlName="amount"
+            required
+          />
+        </div>
+
+        <div class="create-form-field">
+          <label for="transaction-description">Description</label>
+
+          <input
+            id="transaction-description"
+            type="text"
+            placeholder="What was this transaction for?"
+            maxlength="255"
+            formControlName="description"
+          />
+        </div>
+
+        <div class="create-form-field">
+          <label for="transaction-date">Date and time</label>
+
+          <input
+            id="transaction-date"
+            type="datetime-local"
+            formControlName="transactionDate"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="create-form-actions">
+        <button type="button" class="cancel-button" (click)="showCreateForm.set(false)">
+          Cancel
+        </button>
+
+        <button type="submit" class="save-button" [disabled]="createForm.invalid">
+          Save transaction
+        </button>
+      </div>
+    </form>
+  }
 
   <div class="transaction-filters">
     <input

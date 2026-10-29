@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { inject } from '@angular/core';
 import { PageResponse } from '../models/page-response';
 import { TransactionResponse } from '../models/transaction-response';
+import { CreateTransactionRequest } from '../models/create-transaction-request';
 
 @Service()
 export class TransactionService {
@@ -18,5 +19,21 @@ export class TransactionService {
     }
 
     return this.http.get<PageResponse<TransactionResponse>>(url);
+  }
+
+  createTransaction(
+    categoryId: number,
+    amount: number,
+    description: string,
+    transactionDate: string,
+  ) {
+    const body: CreateTransactionRequest = {
+      categoryId,
+      amount,
+      description,
+      transactionDate,
+    };
+
+    return this.http.post<TransactionResponse>(this.apiUrl, body);
   }
 }

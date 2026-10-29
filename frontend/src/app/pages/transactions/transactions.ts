@@ -5,9 +5,10 @@ import { TransactionResponse } from '../../models/transaction-response';
 import { DatePipe, CurrencyPipe } from '@angular/common';
 import { CategoryService } from '../../services/category-service';
 import { CategoryResponse } from '../../models/category-response';
+import { ReactiveFormsModule, Validators, FormGroup, FormControl } from '@angular/forms';
 
 @Component({
-  imports: [DatePipe, CurrencyPipe],
+  imports: [DatePipe, CurrencyPipe, ReactiveFormsModule],
   selector: 'app-transactions',
   styleUrl: './transactions.css',
   templateUrl: './transactions.html',
@@ -22,6 +23,7 @@ export class Transactions {
   selectedCategoryId = signal<number | null>(null);
   currentPage = 0;
   totalPages = signal<number>(0);
+  showCreateForm = signal<boolean>(false);
 
   ngOnInit() {
     this.loadTransactions();
@@ -64,5 +66,33 @@ export class Transactions {
     this.selectedCategoryId.set(value ? parseInt(value, 10) : null);
     this.currentPage = 0;
     this.loadTransactions();
+  }
+
+  createForm = new FormGroup({
+    categoryId: new FormControl<number | null>(null, Validators.required),
+    amount: new FormControl<number | null>(null, [Validators.required, Validators.min(0.01)]),
+    description: new FormControl<string>('', Validators.maxLength(255)),
+    transactionDate: new FormControl<string>('', Validators.required),
+  });
+
+  createTransaction() {
+    if (this.createForm.valid) {
+      const { categoryId, amount, description, transactionDate } = this.createForm.value;
+      if (categoryId && amount && transactionDate) {
+        this.transactionService
+          .createTransaction(
+            categoryId,
+            amount,
+            description ?? '',
+            new Date(transactionDate).toISOString(),
+          )
+          .subscribe(() => {
+            this.createForm.reset();
+            this.showCreateForm.set(false);
+            this.currentPage = 0;
+            this.loadTransactions();
+          });
+      }
+    }
   }
 }
