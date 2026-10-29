@@ -1,0 +1,51 @@
+<section class="register-page">
+  <div class="register-card">
+    <h1>Create account</h1>
+    <p class="subtitle">Create your Spendly account to get started.</p>
+
+    <form class="register-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="form-field">
+        <label for="displayName">Display name</label>
+        <input
+          id="displayName"
+          type="text"
+          placeholder="Your name"
+          autocomplete="name"
+          formControlName="displayName"
+          required
+        />
+      </div>
+
+      <div class="form-field">
+        <label for="email">Email address</label>
+        <input
+          id="email"
+          type="email"
+          placeholder="you@example.com"
+          autocomplete="email"
+          formControlName="email"
+          required
+        />
+      </div>
+
+      <div class="form-field">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          placeholder="Enter a password"
+          autocomplete="new-password"
+          formControlName="password"
+          required
+        />
+      </div>
+
+      <button type="submit" class="register-button">Create account</button>
+    </form>
+
+    <p class="login-link">
+      Already have an account?
+      <a href="/login">Sign in</a>
+    </p>
+  </div>
+</section>
