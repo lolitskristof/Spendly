@@ -2,8 +2,12 @@
   <strong class="logo">Spendly</strong>
 
   @if (isLoggedIn) {
-    <nav>
-      <span class="active-page">Dashboard</span>
+    <nav class="main-nav">
+      <a routerLink="/" routerLinkActive="active-page" [routerLinkActiveOptions]="{ exact: true }">
+        Dashboard
+      </a>
+
+      <a routerLink="/transactions" routerLinkActive="active-page"> Transactions </a>
     </nav>
 
     <button type="button" class="logout-button" (click)="logout()">Log out</button>

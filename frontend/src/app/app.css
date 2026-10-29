@@ -44,3 +44,24 @@
 .logout-button:hover {
   background: #f5f5f5;
 }
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.main-nav a {
+  font-size: 14px;
+  color: #777;
+  text-decoration: none;
+}
+
+.main-nav a:hover,
+.main-nav a.active-page {
+  color: #222;
+}
+
+.main-nav a.active-page {
+  font-weight: 600;
+}
