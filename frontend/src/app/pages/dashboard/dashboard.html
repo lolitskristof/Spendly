@@ -12,7 +12,7 @@
         aria-label="Month"
         #monthSelect
         [value]="selectedMonth"
-        (change)="selectedMonth = +monthSelect.value; loadMonthlySummary()"
+        (change)="selectedMonth = +monthSelect.value; loadDashboardData()"
       >
         <option value="1">January</option>
         <option value="2">February</option>
@@ -35,7 +35,7 @@
         max="2100"
         #yearInput
         [value]="selectedYear"
-        (change)="selectedYear = yearInput.valueAsNumber; loadMonthlySummary()"
+        (change)="selectedYear = yearInput.valueAsNumber; loadDashboardData()"
       />
     </div>
   </div>
@@ -91,6 +91,95 @@
         }
       } @else {
         <p class="category-message">Loading category expenses...</p>
+      }
+    </div>
+  </div>
+
+  <div class="budget-section">
+    <div class="section-header">
+      <h2>Monthly budgets</h2>
+    </div>
+
+    <div class="budget-list">
+      @if (budgetStatus(); as budgets) {
+        @if (budgets.length > 0) {
+          @for (budget of budgets; track budget.budgetId) {
+            <div class="budget-item">
+              <div class="budget-header">
+                <span class="budget-name">{{ budget.categoryName }}</span>
+
+                @if (budget.exceeded) {
+                  <span class="budget-warning">Over budget</span>
+                }
+              </div>
+
+              <div class="budget-details">
+                <span>
+                  Budget:
+                  <strong>{{
+                    budget.budgetAmount | currency: 'HUF' : 'symbol' : '1.0-0' : 'hu-HU'
+                  }}</strong>
+                </span>
+
+                <span>
+                  Spent:
+                  <strong>{{
+                    budget.spentAmount | currency: 'HUF' : 'symbol' : '1.0-0' : 'hu-HU'
+                  }}</strong>
+                </span>
+
+                <span [class.budget-negative]="budget.exceeded">
+                  Remaining:
+                  <strong>{{
+                    budget.remainingAmount | currency: 'HUF' : 'symbol' : '1.0-0' : 'hu-HU'
+                  }}</strong>
+                </span>
+              </div>
+            </div>
+          }
+        } @else {
+          <p class="budget-message">No budgets for this month.</p>
+        }
+      } @else {
+        <p class="budget-message">Loading budgets...</p>
+      }
+    </div>
+  </div>
+
+  <div class="subscription-section">
+    <div class="section-header">
+      <h2>Upcoming subscriptions</h2>
+      <span class="section-description">Next 30 days</span>
+    </div>
+
+    <div class="subscription-list">
+      @if (upcomingSubscriptions(); as subscriptions) {
+        @if (subscriptions.length > 0) {
+          @for (subscription of subscriptions; track subscription.id) {
+            <div class="subscription-row">
+              <div class="subscription-info">
+                <span class="subscription-name">
+                  {{ subscription.name }}
+                </span>
+
+                <span class="subscription-date">
+                  Next payment: {{ subscription.nextBillingDate }}
+                </span>
+              </div>
+
+              <div class="subscription-price">
+                <strong>
+                  {{ subscription.amount | currency: 'HUF' : 'symbol' : '1.0-0' : 'hu-HU' }}
+                </strong>
+                <span>{{ subscription.period }}</span>
+              </div>
+            </div>
+          }
+        } @else {
+          <p class="subscription-message">No upcoming subscriptions.</p>
+        }
+      } @else {
+        <p class="subscription-message">Loading subscriptions...</p>
       }
     </div>
   </div>
