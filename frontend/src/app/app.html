@@ -1,9 +1,13 @@
 <header class="topbar">
   <strong class="logo">Spendly</strong>
 
-  <nav>
-    <span class="active-page">Dashboard</span>
-  </nav>
+  @if (isLoggedIn) {
+    <nav>
+      <span class="active-page">Dashboard</span>
+    </nav>
+
+    <button type="button" class="logout-button" (click)="logout()">Log out</button>
+  }
 </header>
 
 <main class="content">
