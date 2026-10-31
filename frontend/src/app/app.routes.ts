@@ -5,6 +5,7 @@ import { authGuard } from './guards/auth-guard';
 import { Register } from './pages/register/register';
 import { Transactions } from './pages/transactions/transactions';
 import { Budgets } from './pages/budgets/budgets';
+import { Subscriptions } from './pages/subscriptions/subscriptions';
 
 export const routes: Routes = [
   { path: '', component: Dashboard, canActivate: [authGuard] },
@@ -12,4 +13,5 @@ export const routes: Routes = [
   { path: 'register', component: Register },
   { path: 'transactions', component: Transactions, canActivate: [authGuard] },
   { path: 'budgets', component: Budgets, canActivate: [authGuard] },
+  { path: 'subscriptions', component: Subscriptions, canActivate: [authGuard] },
 ];

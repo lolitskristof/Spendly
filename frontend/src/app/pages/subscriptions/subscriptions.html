@@ -1,0 +1,228 @@
+<section class="subscriptions-page">
+  <div class="page-header">
+    <h1>Subscriptions</h1>
+    <p>Manage your recurring payments and subscriptions.</p>
+  </div>
+
+  <div class="section-header">
+    <h2>All subscriptions</h2>
+
+    <button
+      type="button"
+      class="add-subscription-button"
+      (click)="showCreateForm.set(!showCreateForm())"
+    >
+      {{ showCreateForm() ? 'Close' : '+ Add subscription' }}
+    </button>
+  </div>
+
+  @if (showCreateForm()) {
+    <form
+      class="create-subscription-form"
+      [formGroup]="createForm"
+      (ngSubmit)="createSubscription()"
+    >
+      <h3>New subscription</h3>
+
+      <div class="create-form-grid">
+        <div class="create-form-field">
+          <label for="subscription-name">Name</label>
+
+          <input
+            id="subscription-name"
+            type="text"
+            placeholder="e.g. Netflix"
+            maxlength="100"
+            formControlName="name"
+          />
+        </div>
+
+        <div class="create-form-field">
+          <label for="subscription-category">Category</label>
+
+          <select id="subscription-category" formControlName="categoryId">
+            <option [ngValue]="null" disabled>Select a category</option>
+
+            @for (category of categories(); track category.id) {
+              @if (category.categoryType === 'EXPENSE') {
+                <option [ngValue]="category.id">
+                  {{ category.name }}
+                </option>
+              }
+            }
+          </select>
+        </div>
+
+        <div class="create-form-field">
+          <label for="subscription-amount">Amount (HUF)</label>
+
+          <input
+            id="subscription-amount"
+            type="number"
+            min="0.01"
+            step="0.01"
+            placeholder="0"
+            formControlName="amount"
+          />
+        </div>
+
+        <div class="create-form-field">
+          <label for="subscription-period">Billing period</label>
+
+          <select id="subscription-period" formControlName="billingPeriod">
+            <option value="MONTHLY">Monthly</option>
+            <option value="YEARLY">Yearly</option>
+          </select>
+        </div>
+
+        <div class="create-form-field">
+          <label for="subscription-date">Next billing date</label>
+
+          <input id="subscription-date" type="date" formControlName="nextBillingDate" />
+        </div>
+      </div>
+
+      <div class="create-form-actions">
+        <button type="button" class="cancel-button" (click)="showCreateForm.set(false)">
+          Cancel
+        </button>
+
+        <button type="submit" class="save-button" [disabled]="createForm.invalid">
+          Save subscription
+        </button>
+      </div>
+    </form>
+  }
+
+  @if (editingSubscriptionId() !== null) {
+    <form class="create-subscription-form" [formGroup]="editForm" (ngSubmit)="saveEditing()">
+      <h3>Edit subscription</h3>
+
+      <div class="create-form-grid">
+        <div class="create-form-field">
+          <label for="edit-subscription-name">Name</label>
+          <input id="edit-subscription-name" type="text" maxlength="100" formControlName="name" />
+        </div>
+
+        <div class="create-form-field">
+          <label for="edit-subscription-category">Category</label>
+          <select id="edit-subscription-category" formControlName="categoryId">
+            @for (category of categories(); track category.id) {
+              @if (category.categoryType === 'EXPENSE') {
+                <option [ngValue]="category.id">
+                  {{ category.name }}
+                </option>
+              }
+            }
+          </select>
+        </div>
+
+        <div class="create-form-field">
+          <label for="edit-subscription-amount">Amount (HUF)</label>
+          <input
+            id="edit-subscription-amount"
+            type="number"
+            min="0.01"
+            step="0.01"
+            formControlName="amount"
+          />
+        </div>
+
+        <div class="create-form-field">
+          <label for="edit-subscription-period">Billing period</label>
+          <select id="edit-subscription-period" formControlName="billingPeriod">
+            <option value="MONTHLY">Monthly</option>
+            <option value="YEARLY">Yearly</option>
+          </select>
+        </div>
+
+        <div class="create-form-field">
+          <label for="edit-subscription-date">Next billing date</label>
+          <input id="edit-subscription-date" type="date" formControlName="nextBillingDate" />
+        </div>
+
+        <div class="create-form-field">
+          <label for="edit-subscription-status">Status</label>
+          <select id="edit-subscription-status" formControlName="status">
+            <option value="ACTIVE">Active</option>
+            <option value="CANCELLED">Cancelled</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="create-form-actions">
+        <button type="button" class="cancel-button" (click)="cancelEditing()">Cancel</button>
+
+        <button type="submit" class="save-button" [disabled]="editForm.invalid">
+          Save changes
+        </button>
+      </div>
+    </form>
+  }
+
+  <div class="table-container">
+    <table class="subscriptions-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Category</th>
+          <th class="amount-column">Amount</th>
+          <th>Period</th>
+          <th>Next billing</th>
+          <th>Status</th>
+          <th class="actions-column">Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (subscription of subscriptions(); track subscription.id) {
+          <tr>
+            <td class="subscription-name">
+              {{ subscription.name }}
+            </td>
+
+            <td>
+              {{ getCategoryName(subscription.categoryId) }}
+            </td>
+
+            <td class="amount-column">
+              {{ subscription.amount | currency: 'HUF' : 'symbol' : '1.0-0' : 'hu-HU' }}
+            </td>
+
+            <td>
+              {{ subscription.period }}
+            </td>
+
+            <td>
+              {{ subscription.nextBillingDate | date: 'yyyy.MM.dd' }}
+            </td>
+
+            <td>
+              <span
+                class="subscription-status"
+                [class.status-active]="subscription.status === 'ACTIVE'"
+              >
+                {{ subscription.status }}
+              </span>
+            </td>
+            <td class="actions-column">
+              <div class="action-buttons">
+                <button type="button" class="edit-button" (click)="startEditing(subscription)">
+                  Edit
+                </button>
+
+                <button type="button" class="delete-button" (click)="onDelete(subscription.id)">
+                  Delete
+                </button>
+              </div>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="6" class="empty-message">No subscriptions found.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>
