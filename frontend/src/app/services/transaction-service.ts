@@ -5,6 +5,7 @@ import { inject } from '@angular/core';
 import { PageResponse } from '../models/page-response';
 import { TransactionResponse } from '../models/transaction-response';
 import { CreateTransactionRequest } from '../models/create-transaction-request';
+import { UpdateTransactionRequest } from '../models/update-transaction-request';
 
 @Service()
 export class TransactionService {
@@ -35,5 +36,13 @@ export class TransactionService {
     };
 
     return this.http.post<TransactionResponse>(this.apiUrl, body);
+  }
+
+  updateTransaction(transactionId: number, request: UpdateTransactionRequest) {
+    return this.http.patch<TransactionResponse>(`${this.apiUrl}/${transactionId}`, request);
+  }
+
+  deleteTransaction(transactionId: number) {
+    return this.http.delete<void>(`${this.apiUrl}/${transactionId}`);
   }
 }

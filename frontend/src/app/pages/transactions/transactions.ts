@@ -24,6 +24,7 @@ export class Transactions {
   currentPage = 0;
   totalPages = signal<number>(0);
   showCreateForm = signal<boolean>(false);
+  editingTransactionId = signal<number | null>(null);
 
   ngOnInit() {
     this.loadTransactions();
@@ -75,6 +76,13 @@ export class Transactions {
     transactionDate: new FormControl<string>('', Validators.required),
   });
 
+  editForm = new FormGroup({
+    categoryId: new FormControl<number | null>(null, Validators.required),
+    amount: new FormControl<number | null>(null, [Validators.required, Validators.min(0.01)]),
+    description: new FormControl<string>('', Validators.maxLength(255)),
+    transactionDate: new FormControl<string>('', Validators.required),
+  });
+
   createTransaction() {
     if (this.createForm.valid) {
       const { categoryId, amount, description, transactionDate } = this.createForm.value;
@@ -93,6 +101,55 @@ export class Transactions {
             this.loadTransactions();
           });
       }
+    }
+  }
+
+  startEditing(transaction: TransactionResponse) {
+    this.showCreateForm.set(false);
+    this.editingTransactionId.set(transaction.id);
+    const date = new Date(transaction.transactionDate);
+
+    const localDateTime = new Date(date.getTime() - date.getTimezoneOffset() * 60_000)
+      .toISOString()
+      .slice(0, 16);
+
+    this.editForm.setValue({
+      categoryId: transaction.categoryId,
+      amount: transaction.amount,
+      description: transaction.description,
+      transactionDate: localDateTime,
+    });
+  }
+
+  cancelEditing() {
+    this.editingTransactionId.set(null);
+    this.editForm.reset();
+  }
+
+  saveEditing() {
+    if (this.editForm.valid && this.editingTransactionId() !== null) {
+      const { categoryId, amount, description, transactionDate } = this.editForm.value;
+      if (categoryId && amount && transactionDate) {
+        this.transactionService
+          .updateTransaction(this.editingTransactionId()!, {
+            categoryId,
+            amount,
+            description: description ?? '',
+            transactionDate: new Date(transactionDate).toISOString(),
+          })
+          .subscribe(() => {
+            this.cancelEditing();
+            this.loadTransactions();
+          });
+      }
+    }
+  }
+
+  onDelete(transactionId: number) {
+    if (confirm('Are you sure you want to delete this transaction?')) {
+      this.transactionService.deleteTransaction(transactionId).subscribe(() => {
+        this.loadTransactions();
+      });
     }
   }
 }
