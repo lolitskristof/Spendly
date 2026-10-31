@@ -70,6 +70,10 @@
           </div>
         </div>
 
+        @if (createError(); as error) {
+          <p class="form-error">{{ error }}</p>
+        }
+
         <div class="form-actions">
           <button type="button" class="cancel-button" (click)="showCreateForm.set(false)">
             Cancel
@@ -103,6 +107,10 @@
           </div>
         </div>
 
+        @if (editError(); as error) {
+          <p class="form-error">{{ error }}</p>
+        }
+
         <div class="form-actions">
           <button type="button" class="cancel-button" (click)="cancelEditing()">Cancel</button>
 
@@ -111,6 +119,12 @@
           </button>
         </div>
       </form>
+    }
+
+    @if (deleteError(); as error) {
+      <p class="form-error delete-error" role="alert">
+        {{ error }}
+      </p>
     }
 
     <div class="category-list">

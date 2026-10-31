@@ -13,6 +13,10 @@ export class Categories {
   private categoryService = inject(CategoryService);
   categories = signal<CategoryResponse[]>([]);
 
+  createError = signal<string | null>(null);
+  editError = signal<string | null>(null);
+  deleteError = signal<string | null>(null);
+
   showCreateForm = signal(false);
 
   defaultCategories = computed(() =>
@@ -39,6 +43,7 @@ export class Categories {
   });
 
   createCategory() {
+    this.createError.set(null);
     if (this.createForm.invalid) {
       return;
     }
@@ -49,10 +54,17 @@ export class Categories {
       return;
     }
 
-    this.categoryService.createCategory({ name: name.trim(), categoryType }).subscribe(() => {
-      this.loadCategories();
-      this.showCreateForm.set(false);
-      this.createForm.reset();
+    this.categoryService.createCategory({ name: name.trim(), categoryType }).subscribe({
+      next: () => {
+        this.loadCategories();
+        this.showCreateForm.set(false);
+        this.createForm.reset();
+        this.createError.set(null);
+      },
+      error: (error) => {
+        console.error('Failed to create category:', error);
+        this.createError.set('Failed to create category. Please try again.');
+      },
     });
   }
 
@@ -92,6 +104,7 @@ export class Categories {
       return;
     }
 
+    this.editError.set(null);
     this.categoryService.updateCategory(categoryId, { name: name.trim(), categoryType }).subscribe({
       next: () => {
         this.cancelEditing();
@@ -99,18 +112,21 @@ export class Categories {
       },
       error: (error) => {
         console.error('Failed to update category:', error);
+        this.editError.set('Failed to update category. Please try again.');
       },
     });
   }
 
   onDelete(categoryId: number) {
     if (confirm('Are you sure you want to delete this category?')) {
+      this.deleteError.set(null);
       this.categoryService.deleteCategory(categoryId).subscribe({
         next: () => {
           this.loadCategories();
         },
         error: (error) => {
           console.error('Failed to delete category:', error);
+          this.deleteError.set('Failed to delete category. Please try again.');
         },
       });
     }

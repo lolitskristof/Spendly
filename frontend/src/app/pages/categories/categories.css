@@ -258,3 +258,17 @@
     gap: 8px;
   }
 }
+
+.form-error {
+  margin: 16px 0 0;
+  padding: 12px 14px;
+  background: #fff5f5;
+  border: 1px solid #e5caca;
+  border-radius: 4px;
+  color: #b94a48;
+  font-size: 13px;
+}
+
+.delete-error {
+  margin: 0 0 16px;
+}
