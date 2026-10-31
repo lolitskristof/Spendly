@@ -1,0 +1,36 @@
+<section class="profile-page">
+  <div class="page-header">
+    <h1>My profile</h1>
+    <p>Your account information.</p>
+  </div>
+
+  <div class="profile-section">
+    <h2>Account details</h2>
+
+    @if (user(); as profile) {
+      <div class="profile-details">
+        <div class="profile-row">
+          <span class="profile-label">Display name</span>
+          <span class="profile-value">{{ profile.displayName }}</span>
+        </div>
+
+        <div class="profile-row">
+          <span class="profile-label">Email address</span>
+          <span class="profile-value">{{ profile.email }}</span>
+        </div>
+
+        <div class="profile-row">
+          <span class="profile-label">Role</span>
+          <span class="profile-value">{{ profile.role }}</span>
+        </div>
+
+        <div class="profile-row">
+          <span class="profile-label">User ID</span>
+          <span class="profile-value">{{ profile.id }}</span>
+        </div>
+      </div>
+    } @else {
+      <p class="profile-message">Loading profile...</p>
+    }
+  </div>
+</section>
