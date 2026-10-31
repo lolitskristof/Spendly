@@ -1,0 +1,193 @@
+.reports-page {
+  width: 100%;
+}
+
+.page-header {
+  margin-bottom: 40px;
+}
+
+.page-header h1 {
+  margin: 0 0 8px;
+  font-size: 26px;
+  font-weight: 600;
+  color: #222;
+}
+
+.page-header p {
+  margin: 0;
+  font-size: 14px;
+  color: #777;
+}
+
+.report-section {
+  margin-bottom: 36px;
+}
+
+.section-header {
+  margin-bottom: 20px;
+}
+
+.section-header h2 {
+  margin: 0 0 6px;
+  font-size: 17px;
+  font-weight: 600;
+  color: #333;
+}
+
+.section-header p {
+  margin: 0;
+  font-size: 13px;
+  color: #888;
+}
+
+.report-filters {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filter-field label {
+  font-size: 13px;
+  color: #555;
+}
+
+.filter-field select,
+.filter-field input {
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+  color: #333;
+  font-size: 14px;
+}
+
+.filter-field select {
+  min-width: 180px;
+}
+
+.filter-field input {
+  width: 110px;
+  box-sizing: border-box;
+}
+
+.filter-field select:focus,
+.filter-field input:focus {
+  outline: none;
+  border-color: #397c5b;
+}
+
+.report-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.summary-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 24px;
+  background: white;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+}
+
+.summary-label {
+  font-size: 13px;
+  color: #777;
+}
+
+.summary-value {
+  font-size: 24px;
+  font-weight: 600;
+  color: #222;
+  overflow-wrap: anywhere;
+}
+
+.negative-value {
+  color: #b94a48;
+}
+
+.report-message {
+  margin: 0;
+  padding: 24px;
+  background: white;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #888;
+}
+
+@media (max-width: 700px) {
+  .report-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-card {
+    padding: 20px;
+  }
+
+  .summary-value {
+    font-size: 22px;
+  }
+
+  .report-filters {
+    flex-wrap: wrap;
+  }
+}
+
+.report-actions {
+  display: flex;
+  margin-bottom: 24px;
+}
+
+.generate-button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 4px;
+  background: #397c5b;
+  color: white;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.generate-button:hover:not(:disabled) {
+  background: #306b4e;
+}
+
+.generate-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.report-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.download-button {
+  padding: 10px 18px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+  color: #333;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.download-button:hover:not(:disabled) {
+  background: #f5f5f5;
+}
+
+.download-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

@@ -7,6 +7,7 @@ import { Transactions } from './pages/transactions/transactions';
 import { Budgets } from './pages/budgets/budgets';
 import { Subscriptions } from './pages/subscriptions/subscriptions';
 import { Categories } from './pages/categories/categories';
+import { Reports } from './pages/reports/reports';
 
 export const routes: Routes = [
   { path: '', component: Dashboard, canActivate: [authGuard] },
@@ -16,4 +17,5 @@ export const routes: Routes = [
   { path: 'budgets', component: Budgets, canActivate: [authGuard] },
   { path: 'subscriptions', component: Subscriptions, canActivate: [authGuard] },
   { path: 'categories', component: Categories, canActivate: [authGuard] },
+  { path: 'reports', component: Reports, canActivate: [authGuard] },
 ];
