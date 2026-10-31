@@ -1,0 +1,301 @@
+.budgets-page {
+  width: 100%;
+}
+
+.page-header {
+  margin-bottom: 40px;
+}
+
+.page-header h1 {
+  margin: 0 0 8px;
+  font-size: 26px;
+  font-weight: 600;
+  color: #222;
+}
+
+.page-header p {
+  margin: 0;
+  font-size: 14px;
+  color: #777;
+}
+
+.budgets-page {
+  width: 100%;
+}
+
+.page-header {
+  margin-bottom: 40px;
+}
+
+.page-header h1 {
+  margin: 0 0 8px;
+  font-size: 26px;
+  font-weight: 600;
+  color: #222;
+}
+
+.page-header p {
+  margin: 0;
+  font-size: 14px;
+  color: #777;
+}
+
+.section-header {
+  margin-bottom: 16px;
+}
+
+.section-header h2 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+  color: #333;
+}
+
+.budget-filters {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filter-field label {
+  font-size: 13px;
+  color: #555;
+}
+
+.filter-field select,
+.filter-field input {
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+  color: #333;
+  font-size: 14px;
+}
+
+.filter-field select {
+  min-width: 180px;
+}
+
+.filter-field input {
+  width: 110px;
+  box-sizing: border-box;
+}
+
+.filter-field select:focus,
+.filter-field input:focus {
+  outline: none;
+  border-color: #397c5b;
+}
+
+.table-container {
+  background: white;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+
+.budgets-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.budgets-table th {
+  padding: 14px 20px;
+  background: #fafafa;
+  border-bottom: 1px solid #e5e5e5;
+  color: #777;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.budgets-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid #eee;
+  color: #555;
+  font-size: 14px;
+}
+
+.budgets-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.category-name {
+  color: #333 !important;
+  font-weight: 500;
+}
+
+.amount-column {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.empty-message {
+  padding: 32px !important;
+  text-align: center;
+  color: #999 !important;
+}
+
+@media (max-width: 600px) {
+  .budgets-table {
+    min-width: 500px;
+  }
+
+  .budget-filters {
+    flex-wrap: wrap;
+  }
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.add-budget-button,
+.save-button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 4px;
+  background: #397c5b;
+  color: white;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.add-budget-button:hover,
+.save-button:hover:not(:disabled) {
+  background: #306b4e;
+}
+
+.create-budget-form {
+  padding: 24px;
+  margin-bottom: 24px;
+  background: white;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+}
+
+.create-budget-form h3 {
+  margin: 0 0 24px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.create-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.create-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.create-form-field label {
+  font-size: 13px;
+  color: #555;
+}
+
+.create-form-field input,
+.create-form-field select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+  color: #333;
+  font-size: 14px;
+}
+
+.create-form-field input:focus,
+.create-form-field select:focus {
+  outline: none;
+  border-color: #397c5b;
+}
+
+.create-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.cancel-button {
+  padding: 10px 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+  color: #555;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.cancel-button:hover {
+  background: #f5f5f5;
+}
+
+.save-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+  .create-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .create-budget-form {
+    padding: 18px;
+  }
+}
+
+.actions-column {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.edit-button {
+  padding: 7px 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+  color: #444;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.edit-button:hover {
+  background: #f5f5f5;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.delete-button {
+  padding: 7px 14px;
+  border: 1px solid #e5caca;
+  border-radius: 4px;
+  background: white;
+  color: #b94a48;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background: #fff5f5;
+}

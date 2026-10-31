@@ -1,0 +1,236 @@
+<section class="budgets-page">
+  <div class="page-header">
+    <h1>Budgets</h1>
+    <p>Manage your monthly spending limits.</p>
+  </div>
+
+  <div class="section-header">
+    <h2>Monthly budgets</h2>
+
+    <button type="button" class="add-budget-button" (click)="showCreateForm.set(!showCreateForm())">
+      {{ showCreateForm() ? 'Close' : '+ Add budget' }}
+    </button>
+  </div>
+
+  @if (showCreateForm()) {
+    <form class="create-budget-form" [formGroup]="createForm" (ngSubmit)="createBudget()">
+      <h3>New budget</h3>
+
+      <div class="create-form-grid">
+        <div class="create-form-field">
+          <label for="create-budget-category">Category</label>
+
+          <select id="create-budget-category" formControlName="categoryId">
+            <option [ngValue]="null" disabled>Select a category</option>
+
+            @for (category of categories(); track category.id) {
+              @if (category.categoryType === 'EXPENSE') {
+                <option [ngValue]="category.id">
+                  {{ category.name }}
+                </option>
+              }
+            }
+          </select>
+        </div>
+
+        <div class="create-form-field">
+          <label for="create-budget-amount">Monthly limit (HUF)</label>
+
+          <input
+            id="create-budget-amount"
+            type="number"
+            min="0.01"
+            step="0.01"
+            placeholder="0"
+            formControlName="amount"
+          />
+        </div>
+
+        <div class="create-form-field">
+          <label for="create-budget-year">Year</label>
+
+          <input id="create-budget-year" type="number" min="2000" formControlName="year" />
+        </div>
+
+        <div class="create-form-field">
+          <label for="create-budget-month">Month</label>
+
+          <select id="create-budget-month" formControlName="month">
+            <option [ngValue]="1">January</option>
+            <option [ngValue]="2">February</option>
+            <option [ngValue]="3">March</option>
+            <option [ngValue]="4">April</option>
+            <option [ngValue]="5">May</option>
+            <option [ngValue]="6">June</option>
+            <option [ngValue]="7">July</option>
+            <option [ngValue]="8">August</option>
+            <option [ngValue]="9">September</option>
+            <option [ngValue]="10">October</option>
+            <option [ngValue]="11">November</option>
+            <option [ngValue]="12">December</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="create-form-actions">
+        <button type="button" class="cancel-button" (click)="showCreateForm.set(false)">
+          Cancel
+        </button>
+
+        <button type="submit" class="save-button" [disabled]="createForm.invalid">
+          Save budget
+        </button>
+      </div>
+    </form>
+  }
+
+  @if (editingBudgetId() !== null) {
+    <form class="create-budget-form" [formGroup]="editForm" (ngSubmit)="saveEditing()">
+      <h3>Edit budget</h3>
+
+      <div class="create-form-grid">
+        <div class="create-form-field">
+          <label for="edit-budget-category">Category</label>
+
+          <select id="edit-budget-category" formControlName="categoryId">
+            @for (category of categories(); track category.id) {
+              @if (category.categoryType === 'EXPENSE') {
+                <option [ngValue]="category.id">
+                  {{ category.name }}
+                </option>
+              }
+            }
+          </select>
+        </div>
+
+        <div class="create-form-field">
+          <label for="edit-budget-amount">Monthly limit (HUF)</label>
+
+          <input
+            id="edit-budget-amount"
+            type="number"
+            min="0.01"
+            step="0.01"
+            formControlName="amount"
+          />
+        </div>
+
+        <div class="create-form-field">
+          <label for="edit-budget-year">Year</label>
+
+          <input id="edit-budget-year" type="number" min="2000" max="2100" formControlName="year" />
+        </div>
+
+        <div class="create-form-field">
+          <label for="edit-budget-month">Month</label>
+
+          <select id="edit-budget-month" formControlName="month">
+            <option [ngValue]="1">January</option>
+            <option [ngValue]="2">February</option>
+            <option [ngValue]="3">March</option>
+            <option [ngValue]="4">April</option>
+            <option [ngValue]="5">May</option>
+            <option [ngValue]="6">June</option>
+            <option [ngValue]="7">July</option>
+            <option [ngValue]="8">August</option>
+            <option [ngValue]="9">September</option>
+            <option [ngValue]="10">October</option>
+            <option [ngValue]="11">November</option>
+            <option [ngValue]="12">December</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="create-form-actions">
+        <button type="button" class="cancel-button" (click)="cancelEditing()">Cancel</button>
+
+        <button type="submit" class="save-button" [disabled]="editForm.invalid">
+          Save changes
+        </button>
+      </div>
+    </form>
+  }
+
+  <div class="budget-filters">
+    <div class="filter-field">
+      <label for="budget-month">Month</label>
+
+      <select
+        id="budget-month"
+        [value]="selectedMonth()"
+        (change)="onMonthChange($any($event.target).value)"
+      >
+        <option value="1">January</option>
+        <option value="2">February</option>
+        <option value="3">March</option>
+        <option value="4">April</option>
+        <option value="5">May</option>
+        <option value="6">June</option>
+        <option value="7">July</option>
+        <option value="8">August</option>
+        <option value="9">September</option>
+        <option value="10">October</option>
+        <option value="11">November</option>
+        <option value="12">December</option>
+      </select>
+    </div>
+
+    <div class="filter-field">
+      <label for="budget-year">Year</label>
+
+      <input
+        id="budget-year"
+        type="number"
+        min="2000"
+        [value]="selectedYear()"
+        (change)="onYearChange($any($event.target).value)"
+      />
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table class="budgets-table">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th class="amount-column">Monthly limit</th>
+          <th>Year</th>
+          <th>Month</th>
+          <th class="actions-column">Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (budget of budgets(); track budget.id) {
+          <tr>
+            <td class="category-name">
+              {{ getCategoryName(budget.categoryId) }}
+            </td>
+
+            <td class="amount-column">
+              {{ budget.amount | currency: 'HUF' : 'symbol' : '1.0-0' : 'hu-HU' }}
+            </td>
+
+            <td>{{ budget.year }}</td>
+            <td>{{ monthNames[budget.month - 1] }}</td>
+            <td class="actions-column">
+              <div class="action-buttons">
+                <button type="button" class="edit-button" (click)="startEditing(budget)">
+                  Edit
+                </button>
+
+                <button type="button" class="delete-button" (click)="onDelete(budget.id)">
+                  Delete
+                </button>
+              </div>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="5" class="empty-message">No budgets found for this month.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>
