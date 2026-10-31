@@ -1,0 +1,140 @@
+<section class="categories-page">
+  <div class="page-header">
+    <h1>Categories</h1>
+    <p>Manage your income and expense categories.</p>
+  </div>
+
+  <div class="category-section">
+    <div class="section-header">
+      <h2>Default categories</h2>
+      <p>Categories available to all users.</p>
+    </div>
+
+    <div class="category-list">
+      @for (category of defaultCategories(); track category.id) {
+        <div class="category-row">
+          <span class="category-name">
+            {{ category.name }}
+          </span>
+
+          <span class="category-type">
+            {{ category.categoryType === 'INCOME' ? 'Income' : 'Expense' }}
+          </span>
+        </div>
+      } @empty {
+        <p class="empty-message">No default categories found.</p>
+      }
+    </div>
+  </div>
+
+  <div class="category-section">
+    <div class="section-header my-category-header">
+      <div>
+        <h2>My categories</h2>
+        <p>Categories created by you.</p>
+      </div>
+
+      <button
+        type="button"
+        class="add-category-button"
+        (click)="showCreateForm.set(!showCreateForm())"
+      >
+        {{ showCreateForm() ? 'Close' : '+ Add category' }}
+      </button>
+    </div>
+
+    @if (showCreateForm()) {
+      <form class="category-form" [formGroup]="createForm" (ngSubmit)="createCategory()">
+        <h3>New category</h3>
+
+        <div class="category-form-grid">
+          <div class="form-field">
+            <label for="category-name">Category name</label>
+
+            <input
+              id="category-name"
+              type="text"
+              placeholder="e.g. Gaming"
+              formControlName="name"
+            />
+          </div>
+
+          <div class="form-field">
+            <label for="category-type">Category type</label>
+
+            <select id="category-type" formControlName="categoryType">
+              <option [ngValue]="null" disabled>Select a type</option>
+              <option value="INCOME">Income</option>
+              <option value="EXPENSE">Expense</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="cancel-button" (click)="showCreateForm.set(false)">
+            Cancel
+          </button>
+
+          <button type="submit" class="save-button" [disabled]="createForm.invalid">
+            Save category
+          </button>
+        </div>
+      </form>
+    }
+
+    @if (editingCategoryId() !== null) {
+      <form class="category-form" [formGroup]="editForm" (ngSubmit)="saveEditing()">
+        <h3>Edit category</h3>
+
+        <div class="category-form-grid">
+          <div class="form-field">
+            <label for="edit-category-name">Category name</label>
+
+            <input id="edit-category-name" type="text" formControlName="name" />
+          </div>
+
+          <div class="form-field">
+            <label for="edit-category-type">Category type</label>
+
+            <select id="edit-category-type" formControlName="categoryType">
+              <option value="INCOME">Income</option>
+              <option value="EXPENSE">Expense</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="cancel-button" (click)="cancelEditing()">Cancel</button>
+
+          <button type="submit" class="save-button" [disabled]="editForm.invalid">
+            Save changes
+          </button>
+        </div>
+      </form>
+    }
+
+    <div class="category-list">
+      @for (category of myCategories(); track category.id) {
+        <div class="category-row">
+          <span class="category-name">
+            {{ category.name }}
+          </span>
+
+          <div class="category-actions">
+            <span class="category-type">
+              {{ category.categoryType === 'INCOME' ? 'Income' : 'Expense' }}
+            </span>
+
+            <button type="button" class="edit-button" (click)="startEditing(category)">Edit</button>
+
+            <button type="button" class="delete-button" (click)="onDelete(category.id)">
+              Delete
+            </button>
+          </div>
+        </div>
+      } @empty {
+        <p class="empty-message">You haven't created any categories yet.</p>
+      }
+    </div>
+  </div>
+</section>
